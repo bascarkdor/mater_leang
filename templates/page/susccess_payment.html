@@ -1,0 +1,55 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %} Order Confirmed - FlaskShop {% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center py-6 px-4 bg-gray-50/50">
+    <div class="max-w-md w-full bg-white border border-gray-200 rounded-3xl p-6 md:p-8 shadow-sm text-center space-y-6 transform scale-100 transition-all">
+        
+        <div class="relative w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto border border-green-100 shadow-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="absolute inset-0 rounded-full bg-green-400/20 animate-ping pointer-events-none"></div>
+        </div>
+
+        <div class="space-y-2">
+            <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
+                Payment Successful!
+            </h1>
+            <p class="text-sm md:text-base text-gray-500 max-w-xs mx-auto leading-relaxed">
+                Thank you for your purchase. Your order has been dispatched directly to our fulfillment center.
+            </p>
+        </div>
+
+        <div class="bg-blue-50/60 border border-blue-100 rounded-xl p-4 text-left flex gap-3 items-start">
+            <span class="text-xl shrink-0">⚡</span>
+            <p class="text-xs text-blue-800 leading-relaxed font-medium">
+                Our administration desk has been immediately dispatched an invoice alert via our encrypted **Telegram notification system**.
+            </p>
+        </div>
+
+        <div class="border border-gray-100 bg-gray-50/50 rounded-2xl p-4 divide-y divide-gray-200 text-sm text-gray-600">
+            <div class="flex justify-between pb-2.5 font-medium">
+                <span>Payment Status</span>
+                <span class="text-green-600 font-bold bg-green-100/60 px-2 py-0.5 rounded-md text-xs uppercase tracking-wide">Approved</span>
+            </div>
+            <div class="flex justify-between py-2.5">
+                <span>Delivery Method</span>
+                <span class="font-bold text-gray-800">Express Delivery</span>
+            </div>
+            <div class="flex justify-between pt-2.5 font-bold text-gray-900">
+                <span>Total Settled</span>
+                <span class="text-base font-black">Transaction Closed</span>
+            </div>
+        </div>
+
+        <div class="pt-2">
+            <a href="/" class="block w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3.5 px-6 rounded-xl text-sm transition shadow-sm active:scale-[0.98] cursor-pointer text-center">
+                Return to Storefront
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlaskShop Header</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+<header class="bg-blue-600 from-blue-700 to-blue-600 shadow-lg relative z-50">
+    <div class="container mx-auto px-4 md:px-6">
+        <div class="flex justify-between items-center h-16">
+
+            <a href="/" class="text-white text-2xl font-bold tracking-wide">
+                FlaskShop
+            </a>
+
+            <label for="mobile-menu-checkbox" class="cursor-pointer md:hidden block text-white p-2 select-none" aria-label="Toggle Navigation Menu">
+                <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                    <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+                </svg>
+            </label>
+
+            <input type="checkbox" id="mobile-menu-checkbox" class="hidden peer" />
+
+            <nav class="absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-blue-700 md:bg-transparent
+                        max-h-0 md:max-h-full overflow-hidden md:overflow-visible transition-all duration-300 ease-in-out
+                        peer-checked:max-h-[600px] shadow-xl md:shadow-none">
+
+                <ul class="flex flex-col md:flex-row items-stretch md:items-center p-4 md:p-0 space-y-3 md:space-y-0 md:space-x-6 lg:space-x-8 text-white font-medium">
+
+                    <li>
+                        <a href="/" class="block py-2 px-3 md:p-0 rounded-lg md:rounded-none hover:bg-blue-800 md:hover:bg-transparent hover:text-yellow-300 transition">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/about" class="block py-2 px-3 md:p-0 rounded-lg md:rounded-none hover:bg-blue-800 md:hover:bg-transparent hover:text-yellow-300 transition">
+                            About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/products" class="block py-2 px-3 md:p-0 rounded-lg md:rounded-none hover:bg-blue-800 md:hover:bg-transparent hover:text-yellow-300 transition">
+                            Products
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/contact" class="block py-2 px-3 md:p-0 rounded-lg md:rounded-none hover:bg-blue-800 md:hover:bg-transparent hover:text-yellow-300 transition">
+                            Contact
+                        </a>
+                    </li>
+
+                    <li class="pt-2 md:pt-0">
+                        <a href="/cart"
+                           class="block text-center bg-white text-blue-700 px-4 py-2.5 rounded-xl md:rounded-lg font-bold md:font-medium hover:bg-yellow-300 hover:text-black transition shadow-sm md:shadow-none active:scale-[0.98] md:active:scale-100">
+                            Cart
+                        </a>
+                    </li>
+
+                    <li class="relative list-none pt-2 md:pt-0">
+                        <details class="group">
+                            <summary class="cursor-pointer list-none bg-blue-800 px-4 py-2.5 md:py-2 rounded-xl md:rounded-lg hover:bg-blue-900 transition text-white flex justify-between items-center md:inline-flex select-none">
+                                <span>Account</span>
+                                <span class="text-xs ml-2 group-open:rotate-180 transition-transform">▼</span>
+                            </summary>
+
+                            <ul class="mt-2 md:absolute md:right-0 w-full md:w-44 bg-white rounded-xl md:rounded-lg shadow-xl overflow-hidden text-gray-700">
+                                <li>
+                                    <a href="/register" class="block px-4 py-3 hover:bg-blue-50 text-sm font-semibold md:font-medium transition border-b border-gray-100 md:border-none">
+                                        Register
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/login" class="block px-4 py-3 hover:bg-blue-50 text-sm font-semibold md:font-medium transition border-b border-gray-100 md:border-none">
+                                        Login
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/settings" class="block px-4 py-3 hover:bg-blue-50 text-sm font-semibold md:font-medium transition">
+                                        Settings
+                                    </a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</header>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %}Home - My Flask Store{% endblock %}
+
+{% block content %}
+<div class="text-center py-12">
+    <h1 class="text-4xl font-extrabold text-blue-600 tracking-tight sm:text-5xl">
+        Welcome to My Flask Store
+    </h1>
+    <p class="mt-4 text-lg text-gray-600">
+        This page includes the header and footer layout.
+    </p>
+    <div class="mt-6">
+        <a href="/register" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow font-medium hover:bg-blue-700 transition">
+            Go to Register
+        </a>
+    </div>
+</div>
+{% endblock %}

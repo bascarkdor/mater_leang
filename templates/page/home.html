@@ -1,0 +1,74 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %} Home - FlaskShop {% endblock %}
+
+{% block content %}
+<section class="bg-blue-600 from-blue-700 to-blue-600 text-white py-12 md:py-24 px-4 rounded-2xl shadow-sm relative overflow-hidden">
+    <div class="max-w-2xl mx-auto text-center relative z-10 space-y-4 md:space-y-6">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
+            Welcome to FlaskShop
+        </h1>
+        <p class="text-base md:text-xl text-blue-100 max-w-md mx-auto">
+            Discover the best products at amazing prices. Handpicked quality, lightning-fast delivery.
+        </p>
+        <div class="pt-2">
+            <a href="/products" class="inline-block w-full sm:w-auto bg-yellow-400 text-black px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-300 transition shadow-md active:scale-[0.98] text-center">
+                Shop Now
+            </a>
+        </div>
+    </div>
+    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full blur-xl pointer-events-none"></div>
+</section>
+
+<section class="py-10 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight">
+        Featured Products
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {% for p in product_list %}
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-md border border-gray-200 p-4 md:p-5 flex flex-col justify-between transition group">
+            <div>
+                <a href="/product?id={{ p.id }}" class="block">
+                    <div class="w-full h-48 flex items-center justify-center overflow-hidden rounded-xl bg-gray-50 p-4 relative">
+                        <img src="{{ p.image }}" alt="{{ p.title }}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                </a>
+
+                <span class="inline-block bg-blue-50 text-blue-700 text-[10px] md:text-xs px-2.5 py-1 rounded-full uppercase font-bold mt-4 tracking-wider">
+                    {{ p.category }}
+                </span>
+
+                <h3 class="text-base md:text-lg font-bold mt-2 text-gray-800 line-clamp-2 leading-snug" title="{{ p.title }}">
+                    {{ p.title }}
+                </h3>
+
+                <p class="text-gray-500 text-xs md:text-sm mt-1.5 line-clamp-3 leading-relaxed">
+                   {{ p.description }}
+                </p>
+            </div>
+
+            <div class="mt-5">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xl md:text-2xl font-black text-gray-900">
+                        ${{ "%.2f"|format(p.price) }}
+                    </span>
+
+                    <div class="flex items-center text-xs md:text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded-md border border-gray-100">
+                        <span class="text-yellow-500 mr-1">★</span>
+                        <span class="font-bold text-gray-800">{{ p.rating.rate }}</span>
+                        <span class="text-gray-400 ml-1">({{ p.rating.count }})</span>
+                    </div>
+                </div>
+
+                <a href="/product?id={{ p.id }}" class="block">
+                    <button type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 shadow-sm active:scale-[0.98] cursor-pointer text-sm text-center">
+                        Add To Cart
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

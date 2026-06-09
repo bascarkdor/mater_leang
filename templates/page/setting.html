@@ -1,0 +1,79 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %}Account Settings - FlaskShop{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-6">
+
+    <div>
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">Account Settings</h1>
+        <p class="text-sm text-gray-500">Update your profile information, preferences, and secure your account.</p>
+    </div>
+
+    <form action="/settings/update" method="POST" class="space-y-6">
+
+        <div class="bg-white rounded-2xl border border-gray-200 p-4 md:p-6 shadow-sm space-y-4">
+            <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-2">Profile Information</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                    <label for="username" class="text-sm font-semibold text-gray-700">Username</label>
+                    <input type="text" id="username" name="username" value="JohnDoe" 
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 p-3 outline-none transition">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label for="email" class="text-sm font-semibold text-gray-700">Email Address</label>
+                    <input type="email" id="email" name="email" value="johndoe@example.com" 
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 p-3 outline-none transition">
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 p-4 md:p-6 shadow-sm space-y-4">
+            <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-2">Preferences</h2>
+            
+            <div class="space-y-4">
+                <label class="flex items-center justify-between cursor-pointer group select-none">
+                    <div class="space-y-0.5 pr-4">
+                        <span class="text-sm font-semibold text-gray-800">Email Notifications</span>
+                        <p class="text-xs text-gray-500">Receive weekly updates, sales promotions, and shopping cart reminders.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="checkbox" name="email_notifications" checked class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </div>
+                </label>
+
+                <hr class="border-gray-100">
+
+                <label class="flex items-center justify-between cursor-pointer group select-none">
+                    <div class="space-y-0.5 pr-4">
+                        <span class="text-sm font-semibold text-gray-800">Order Tracking Updates</span>
+                        <p class="text-xs text-gray-500">Get instant automated notifications when your purchases ship out.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="checkbox" name="order_updates" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row-reverse gap-3 pt-2">
+            <button type="submit" 
+                    class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl text-sm shadow-md transition active:scale-[0.98] text-center">
+                Save Changes
+            </button>
+            
+            <a href="{{ url_for('home') }}" class="w-full sm:w-auto">
+                <button type="button" 
+                        class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-3.5 rounded-xl text-sm transition active:scale-[0.98] text-center">
+                    Cancel
+                </button>
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

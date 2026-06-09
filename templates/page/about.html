@@ -1,0 +1,64 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %} About Us - FlaskShop {% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-12 md:space-y-20 animate-fade-in">
+
+    <section class="text-center space-y-4 px-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
+            About Us
+        </h1>
+        <div class="w-16 h-1 bg-blue-600 mx-auto rounded-full"></div>
+        <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed pt-2">
+            FlaskShop is a cutting-edge e-commerce ecosystem meticulously engineered using <span class="text-blue-600 font-semibold">Flask</span> and stylized with <span class="text-blue-600 font-semibold">Tailwind CSS</span>.
+        </p>
+    </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm text-center">
+        <div class="space-y-1 p-2">
+            <p class="text-3xl md:text-4xl font-black text-blue-600">99.9%</p>
+            <p class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Uptime Reliability</p>
+        </div>
+        <div class="space-y-1 p-2 border-y sm:border-y-0 sm:border-x border-gray-100">
+            <p class="text-3xl md:text-4xl font-black text-blue-600">24/7</p>
+            <p class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Customer Support</p>
+        </div>
+        <div class="space-y-1 p-2">
+            <p class="text-3xl md:text-4xl font-black text-blue-600">Instant</p>
+            <p class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Secure Checkout</p>
+        </div>
+    </section>
+
+    <section class="space-y-6">
+        <h2 class="text-xl md:text-2xl font-bold text-center text-gray-900 tracking-tight">What Drives Us</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            
+            <div class="bg-white border border-gray-200 p-5 rounded-2xl flex gap-4 items-start shadow-inner">
+                <div class="bg-blue-50 text-blue-600 p-3 rounded-xl text-xl shrink-0">🚀</div>
+                <div class="space-y-1">
+                    <h3 class="font-bold text-gray-900 text-base">Lightning Performance</h3>
+                    <p class="text-xs md:text-sm text-gray-500 leading-relaxed">Our minimalist architecture ensures web pages render instantly for effortless browsing.</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 p-5 rounded-2xl flex gap-4 items-start shadow-inner">
+                <div class="bg-blue-50 text-blue-600 p-3 rounded-xl text-xl shrink-0">🔒</div>
+                <div class="space-y-1">
+                    <h3 class="font-bold text-gray-900 text-base">Security First</h3>
+                    <p class="text-xs md:text-sm text-gray-500 leading-relaxed">Your data safety is paramount. Every request route is hardened and carefully protected.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="text-center pt-4">
+        <a href="{{ url_for('home') }}" class="inline-block w-full sm:w-auto bg-gray-900 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-gray-800 transition active:scale-[0.98]">
+            Return to Storefront
+        </a>
+    </div>
+
+</div>
+{% endblock %}
