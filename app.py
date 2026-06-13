@@ -68,23 +68,29 @@ def product_detail():
     if product is None:
         return "Product Not Found", 404
 
-    # 1. Grab existing cart cookie (returns an empty string if cookie doesn't exist)
+    # --- NEW: Get products from the same category (excluding the current product) ---
+    related_products = [
+        p for p in products
+        if p['category'] == product['category'] and p['id'] != product['id']
+    ]
+
+    # 1. Grab existing cart cookie
     existing_cart = request.cookies.get('shopping_cart', '')
 
     # 2. Look for the 'add=True' flag from our HTML link
     is_adding = request.args.get('add', type=bool, default=False)
 
-    # Prepare the initial response object
-    response = make_response(render_template('page/product_detail.html', product=product))
+    # Pass 'related_products' into your template context
+    response = make_response(
+        render_template('page/product_detail.html', product=product, related_products=related_products)
+    )
 
     if is_adding:
-        # Build a comma-separated string of IDs (e.g., "1,4,2")
         if existing_cart:
             updated_cart = f"{existing_cart},{product_id}"
         else:
             updated_cart = str(product_id)
 
-        # 3. Save the string back to the browser cookies (valid for 30 days)
         response.set_cookie('shopping_cart', updated_cart, max_age=2592000)
 
     return response
