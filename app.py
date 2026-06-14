@@ -157,7 +157,7 @@ def update_cart():
 
 @app.route('/checkout', methods=['POST'])
 def checkout():
-    # 1. Fetch the data straight from cookies (just like the /cart route does)
+    # 1. Fetch the data straight from cookies
     cart_cookie = request.cookies.get('shopping_cart', '')
 
     if not cart_cookie:
@@ -171,7 +171,7 @@ def checkout():
     for item_id in cart_ids:
         id_counts[item_id] = id_counts.get(item_id, 0) + 1
 
-    # 3. Build the cart list using your data list to format the Telegram notification
+    # 3. Build the cart list to calculate the total for the checkout form view
     cart_list = []
     grand_total = 0.0
 
@@ -182,7 +182,6 @@ def checkout():
             grand_total += row_total
             cart_list.append({
                 "title": matched_item["title"],
-                "category": matched_item["category"],
                 "price": matched_item["price"],
                 "qty": qty,
                 "row_total": row_total
@@ -192,18 +191,59 @@ def checkout():
         flash("Your cart items are invalid!", "warning")
         return redirect('/products')
 
-    # 4. Format a clean, highly readable message for your Telegram chat
-    message = "🛍️ **NEW ORDER RECEIVED** 🛍️\n\n"
-    for item in cart_list:
-        message += f"📦 *Product:* {item['title']}\n"
-        message += f"🏷️ *Category:* {item['category']}\n"
-        message += f"🔢 *Quantity:* {item['qty']} x ${item['price']:.2f}\n"
-        message += f"💵 *Subtotal:* ${item['row_total']:.2f}\n"
-        message += "-------------------------\n"
+    # Render the checkout page and pass down the calculated grand total
+    return render_template('page/checkout.html', total=grand_total)
 
-    message += f"🎯 **TOTAL PAID: ${grand_total:.2f}**"
 
-    # 5. Send the payload to Telegram API
+@app.route('/submit-order', methods=['POST'])
+def submit_order():
+    # 1. Grab cookie data again to construct the final text receipt
+    cart_cookie = request.cookies.get('shopping_cart', '')
+    if not cart_cookie:
+        flash("Your cart session has expired.", "error")
+        return redirect('/products')
+
+    cart_ids = [int(item_id) for item_id in cart_cookie.split(',') if item_id]
+
+    id_counts = {}
+    for item_id in cart_ids:
+        id_counts[item_id] = id_counts.get(item_id, 0) + 1
+
+    # 2. Retrieve customer details from form inputs
+    username = request.form.get('username')
+    age = request.form.get('age')
+    phone = request.form.get('phone')
+    location = request.form.get('location')
+    address = request.form.get('address')
+
+    # 3. Build item summary string and calculate final total
+    items_summary = ""
+    grand_total = 0.0
+
+    for item_id, qty in id_counts.items():
+        matched_item = next((p for p in products if p['id'] == item_id), None)
+        if matched_item:
+            row_total = matched_item["price"] * qty
+            grand_total += row_total
+            items_summary += f"📦 *{matched_item['title']}*\n"
+            items_summary += f"   ↳ Qty: {qty} x ${matched_item['price']:.2f} = ${row_total:.2f}\n"
+
+    # 4. Format structured Markdown payload for your Telegram Channel
+    message = (
+        f"🚨 📈 *NEW INCOMING ORDER* 📈 🚨\n\n"
+        f"👤 *Customer Profile:*\n"
+        f"• **Name:** {username}\n"
+        f"• **Age:** {age}\n"
+        f"• **Phone:** {phone}\n\n"
+        f"📍 *Delivery Destination:*\n"
+        f"• **Region/City:** {location}\n"
+        f"• **Full Address:**\n{address}\n\n"
+        f"🛒 *Line Items Ordered:*\n"
+        f"{items_summary}\n"
+        f"💰 **GRAND TOTAL AMOUNT: ${grand_total:.2f}**"
+    )
+
+    # 5. Dispatch payload asynchronously to Telegram API
     telegram_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
@@ -214,9 +254,8 @@ def checkout():
     try:
         api_response = requests.post(telegram_url, json=payload)
         if api_response.status_code == 200:
-            # 6. Success! Clear the shopping cart cookie from the user's browser
-            # We redirect to a success state or home, clearing the cookie on the way out
-            response = make_response(redirect('/payment_success'))
+            # Clear out the cookie since order is successfully logged
+            response = make_response(redirect(url_for('payment_success')))
             response.delete_cookie('shopping_cart')
             return response
         else:
